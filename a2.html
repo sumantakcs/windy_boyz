@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>assignment2 visualization</title>
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">Windy Boyz's Project</a>
+            <button class="navbar-toggler title" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <div class="navbar_right_side">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Visualizations
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="handsketched.html">Handsketched</a>
+                                <a class="dropdown-item" href="a2.html">Singel View</a>
+                                <a class="dropdown-item" href="a3.html">Linked View</a>
+								<a class="dropdown-item" href="spatial.html">Spatial</a>
+                                
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="comparison.html">Multiple Linked View</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="data.html">Data</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <a><br></a>
+              </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                    <div class="jumbotron content">
+                        <h1 class="display-4">Assignment2 visualization</h1>
+                        <hr class="my-4">
+						<h4>Time based visualization</h4>
+                        <img class="img-options" src="visualization-2/output_3_0.png" alt="">
+						<img class="img-options" src="visualization-2/vis1.png" alt="">
+						<figcaption style="color: teal; font-style: italic;">Time-centric visualizations reveal evolving data trends, enabling users to discern temporal patterns and anomalies. The initial summary spans 17 years, highlighting fluctuations in violation counts without a consistent linear trend. Notably, the significant disparity in 2006 suggests administrative unpreparedness, but over time, both open and resolved violations decrease, indicating a more mature approach to the issue.
+						</figcaption>
+						<p></p>
+						<h4>Space-based visualization</h4>
+						<img class="img-options" src="visualization-2/vis3.png" alt="">
+						<img class="img-options" src="visualization-2/output_6_0.png" alt="">
+						<figcaption style="color: teal; font-style: italic;">The Space-based visualization reveals a concentrated distribution of building violations in Community Areas 20 to 40, notably consistent in 2020. Both visualizations underscore the stability of building violation distribution throughout Chicago's Community Areas from 2006 to 2020. The majority of cases are concentrated in Community Areas 20 to 40, indicating a persistent trend over the years.</figcaption>
+                        <p></p>
+						<h4>Space+Time-based visualization</h4>
+						<img class="img-options" src="visualization-2/vis5.png" alt="">
+						<figcaption style="color: teal; font-style: italic;">The visualization is valuable for its comprehensive depiction of violation distribution across community areas, offering both spatial and temporal insights, particularly in 2020. The presence of multiple spikes in certain community areas indicates a higher frequency of ignored violations, suggesting potential challenges for the administration in managing the substantial volume and signaling a need for additional regulatory measures.</figcaption>
+						<p></p>
+						<h4>Distributions</h4>
+						<img class="img-options" src="visualization-2/output_7_0.png" alt="">
+						
+						
+						<img class="img-options" src="visualization-2/output_9_0.png" alt="">
+						<figcaption style="color: teal; font-style: italic;">The generated pie chart illustrates the distribution of violation statuses for a specific year, emphasizing the number of open cases. The second chart highlights the monthly violation count for the same year, collectively suggesting a decrease in overall violations with limited attention to resolving issues. This implies a potential administrative focus on addressing underlying causes rather than promptly resolving existing problems.</figcaption>
+						
+						<img class="img-options" src="visualization-2/424AS2_msno.png" alt="">
+						
+						
+						
+						<img class="img-options" src="visualization-2/424AS2_heat.png" alt="">
+						<figcaption style="color: teal; font-style: italic;">With the dataset focusing on the CIty of Chicago's inspection records, many fields are necessary for a complete and full record. One of the challenges that occurs for inspectors and investigators is aiming for completeness, and we found that many of the fields seen here in this visualization are missing a significant amount of data, likely due to the need for more inspectors (with many vacant inspection positions under the City's administration).The second visualization follows a similar idea in exploring the completeness and spread of a sample of data, albeit through the lens of the types of inspections versus their status(es). We found that all complaint inspection types failed, and the only type (of 3) to have passing inspections are permit inspections.</figcaption>
+						<p></p>
+						<h4>Comparison</h4>
+						<img class="img-options" src="visualization-2/vis7.png" alt="">
+						<figcaption style="color: teal; font-style: italic;">Given the continuous nature of our data across various regions, meaningful comparison proves challenging, leading to the adoption of a heatmap for an intuitive overview. The heatmap's color scheme is determined by density values, with the downtown area showing a higher concentration of violations in shades transitioning from blue to red, aligning with expectations of extensive construction activity in this prominent business district. Violations decrease moving away from downtown.</figcaption>
+						
+						
+						<p></p>
+						
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="jumbotron content">
+                        <h1 class="display-4 subheader">Visualizations</h1>
+                        <hr class="my-4">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <a href="handsketched.html">
+                                    <img class="img-options selected-vis" src="visualization-1/a.JPG" alt="Max-Temperature-scatter">
+                                </a>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <a href="a2.html">
+                                    <img class="img-options" src="visualization-2/vis7.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <br>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <a href="a3.html">
+                                    <img class="img-options" src="a31.png" alt="">
+                                </a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</html>

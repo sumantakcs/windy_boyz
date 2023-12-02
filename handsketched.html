@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Max Temperature Visualization</title>
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="styles.css">
+		<style>
+  #homeButton {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            padding: 10px;
+            background-color: #3498db;
+            color: #ffffff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+  </style>
+    </head>
+   
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="index.html">Windy Boyz's Project</a>
+            <button class="navbar-toggler title" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <div class="navbar_right_side">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Visualizations
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="handsketched.html">Handsketched</a>
+                                <a class="dropdown-item" href="a2.html">Single View</a>
+                                <a class="dropdown-item" href="a3.html">Linked View</a>
+								<a class="dropdown-item" href="spatial.html">Spatial</a>
+                                
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="comparison.html">Multiple Linked View</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="data.html">Data</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row">
+                <a><br></a>
+              </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                    <div class="jumbotron content">
+                        <h1 class="display-4">Handsketched plot</h1>
+                        <hr class="my-4">
+                        <img class="img-options" src="visualization-1/a.JPG" alt="">
+						<figcaption style="color: teal; font-style: italic;">Violation count vs violation date</figcaption>
+						<img class="img-options" src="visualization-1/b.jpg" alt="">
+						<figcaption style="color: teal; font-style: italic;">Number of violations vs violation date</figcaption>
+						<img class="img-options" src="visualization-1/c.jpg" alt="">
+						<figcaption style="color: teal; font-style: italic;">Violation count vs violation date</figcaption>
+						<img class="img-options" src="visualization-1/d.jpg" alt="">
+						<img class="img-options" src="visualization-1/e.png" alt="">
+						<figcaption style="color: teal; font-style: italic;">Size of the circle/color-scale represents the amount of violations of that type are in that area</figcaption>
+						
+						
+						<img class="img-options" src="visualization-1/f.jpg" alt="">
+						<figcaption style="color: teal; font-style: italic;">Violation count vs community area</figcaption>
+						
+						<img class="img-options" src="visualization-1/g.jpg" alt="">
+						<figcaption style="color: teal; font-style: italic;">Violation status in different area</figcaption>
+						
+						<img class="img-options" src="visualization-1/h.jpg" alt="">
+						<figcaption style="color: teal; font-style: italic;">Open/compiled violations based on different community area</figcaption>
+						
+						
+						<img class="img-options" src="visualization-1/k.jpg" alt="">
+						<figcaption style="color: teal; font-style: italic;">Violation count based on the violation status</figcaption>
+						
+						<img class="img-options" src="visualization-1/l.jpg" alt="">
+						<figcaption style="color: teal; font-style: italic;">Number of violation count for each violation status</figcaption>
+						
+						<img class="img-options" src="visualization-1/m.jpg" alt="">
+						<figcaption style="color: teal; font-style: italic;">Correlation between inspection status and the categories. For instance if the inspection status Failed is well correlated with the inspection category complaint that provides a good reason to inspect the matter deeply since failed complaints will have the highest level of negative impact.</figcaption>
+						
+						<img class="img-options" src="visualization-1/o.jpg" alt="">
+						<figcaption style="color: teal; font-style: italic;">Dendrogram ontology represent the relationships of the overall dataset as a time series with the completeness of the data. The main takeaway shows that some significance was not taken with the locations of status dates of violation</figcaption>
+						
+						<img class="img-options" src="visualization-1/p.png" alt="">
+						<figcaption style="color: teal; font-style: italic;">Breakdown of the three distinct statuses of building violations recorded in 2020.</figcaption>
+						<img class="img-options" src="visualization-1/q.png" alt="">
+						<figcaption style="color: teal; font-style: italic;">Comprehensive view of the evolution of building violations over a defined timeline.</figcaption>
+						<img class="img-options" src="visualization-1/r.png" alt="">
+						<figcaption style="color: teal; font-style: italic;">Distribution of building violations across different community areas, further dissected by their individual statuses.</figcaption>
+						<img class="img-options" src="visualization-1/s.jpg" alt="">
+						<figcaption style="color: teal; font-style: italic;">Track the progression of building violations throughout the year 2020, presenting a chronological account of their occurrence.</figcaption>
+						<img class="img-options" src="visualization-1/t.jpg" alt="">
+						<figcaption style="color: teal; font-style: italic;">Dual-layered perspective on building violations in 2020 by both community areas and their respective statuses.</figcaption>
+						<p></p>
+						<h4>Summary</h4>
+                        <p>The visualizations created offer a rich, multi-faceted understanding of building violations in Chicago. While the time series plot provides a broad understanding of trends, the heatmap and bar chart offer a detailed view of geographic and administrative patterns. Each visualization type has been carefully selected to address a specific domain question effectively and is backed by detailed write-ups justifying each design choice. Based on the observation of visualizations, we can conclude that the building violations has been decreasing over years. Most of building violation locates from community 30-40, so we can state that the building violation is major in the center of Chicago. Moreover, we can see the violation status is well distributed throughout the community area, all area will have three status allocated in except for community area 80 that have almost open status. In three types of violation status, complied violation status is the most common among statuses, and the open status is the second most common. We observed a small number of no entry status, so it means that the data was well-collected.From the correlation graph, it shows the correlation between inspection status and the categories. For instance if the inspection status Failed is well correlated with inspection category complaint that provides a good reason to inspect the matter deeply since failed complaints will have highest level of negative impact.</p>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="jumbotron content">
+                        <h1 class="display-4 subheader">Visualizations</h1>
+                        <hr class="my-4">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <a href="handsketched.html">
+                                    <img class="img-options selected-vis" src="visualization-1/a.JPG" alt="">
+                                </a>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <a href="a2.html">
+                                    <img class="img-options" src="visualization-2/vis7.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <br>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <a href="a3.html">
+                                    <img class="img-options" src="a31.png" alt="">
+                                </a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+</html>

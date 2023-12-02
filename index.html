@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Web Visualization</title>
+    <!-- <link rel="stylesheet" href="reset.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+	<style>
+	.thumbnail-container {
+      display: flex; /* Use flexbox to align items horizontally */
+    }
+
+    .thumbnail-container a {
+      margin-right: 200px; /* Adjust the margin between thumbnails */
+    }
+	</style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">Windy Boyz's Project</a>
+        <button class="navbar-toggler title" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <div class="navbar_right_side">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Visualizations
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="handsketched.html">Handsketched</a>
+                            <a class="dropdown-item" href="a2.html">Single View</a>
+                            <a class="dropdown-item" href="a3.html">Linked View</a>
+                            <a class="dropdown-item" href="spatial.html">Spatial</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="comparison.html">Multiple Linked View</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="data.html">Data</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <a><br></a>
+        </div>
+        <div class="container-fluid pt-12 pb-12">
+        <div class="row g-12">
+            <div class="col-lg-12 pr-12">
+                <div class="jumbotron content">
+                    <h1 class="display-4">Building Violations in Chicago Dataset</h1>
+                    <hr class="my-4">
+                    <p>Violations issued by the Department of Buildings from 2006 to the present. Lenders and title companies, please note: These data are historical in nature and should not be relied upon for real estate transactions. For transactional purposes such as closings, please consult the title commitment for outstanding enforcement actions in the Circuit Court of Cook County or the Chicago Department of Administrative Hearings. Violations are always associated to an inspection and there can be multiple violation records to one inspection record. Related Applications: Building Data Warehouse <a href="http://www.cityofchicago.org/city/en/depts/bldgs/provdrs/inspect/svcs/building_violationsonline.html" class="text-primary" style="color: blue;">http://www.cityofchicago.org/city/en/depts/bldgs/provdrs/inspect/svcs/building_violationsonline.html</a>. The information presented on this website is informational only and does not necessarily reflect the current condition of the building or property. The dataset contains cases where a respondent has been found to be liable as well as cases where the respondent has been found to be not liable.</p>
+                 </div>
+				 
+				 
+			<div class="thumbnail-container">
+			<a href="handsketched.html">
+			<img src="visualization-1/a.jpg" alt="" height=200 width=200>
+			</a>
+  
+			<a href="a2.html">
+			<img src="visualization-2/vis7.png" alt="" height=200 width=200>
+			</a>
+            <a href="a3.html">
+			<img src="a31.png" alt="" height=200 width=200>
+			</a>
+
+			 
+			</div>
+	 
+                
+            <!-- 
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+			    
+                <div class="jumbotron content">
+                   
+                    <hr class="my-1">
+                    <div class="column">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <a href="handsketched.html">
+                                <img class="img-options" src="visualization-1/a.jpg"
+                                    alt="">
+                            </a>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <a href="a2.html">
+                                <img class="img-options" src="visualization-2/vis7.png"
+                                    alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <br>
+                    </div>
+                    <div class="column">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                            <a href="a3.html">
+                                <img class="img-options" src="a31.png"
+                                    alt="Cloudiness-scatter">
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+</html>

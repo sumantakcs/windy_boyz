@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spatial View</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+     <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: auto;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+    }
+    
+    .visualization-container {
+      width: 80%;
+      max-width: 800px;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+	#homeButton {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            padding: 10px;
+            background-color: #3498db;
+            color: #ffffff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+  </style>
+</head>
+
+    <a href="index.html" id="homeButton">Home</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a> 
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="visualization-container">
+        <div class="row visualization-container">
+            <div id="vega-vis" class="vega-vis"></div>
+        </div>
+        <div class="row visualization-container">
+            <div id="violations-vis" class="vega-vis"></div> 
+        </div>
+        <div class="row visualization-container">
+            <div id="combined-vis" class="vega-vis"></div>
+        </div>       
+        <div class="row visualization-container">
+            <div id="click-interaction-vis" class="vega-vis"></div>
+        </div> 
+    </div>
+    <script>
+        var violationsByYearData = [{"YEAR":"2006","TotalViolations":7141},{"YEAR":"2007","TotalViolations":5012},{"YEAR":"2008","TotalViolations":23336},{"YEAR":"2009","TotalViolations":59961},{"YEAR":"2010","TotalViolations":73703},{"YEAR":"2011","TotalViolations":86493},{"YEAR":"2012","TotalViolations":70810},{"YEAR":"2013","TotalViolations":48748},{"YEAR":"2014","TotalViolations":64243},{"YEAR":"2015","TotalViolations":83172},{"YEAR":"2016","TotalViolations":81845},{"YEAR":"2017","TotalViolations":69294},{"YEAR":"2018","TotalViolations":57350},{"YEAR":"2019","TotalViolations":47783},{"YEAR":"2020","TotalViolations":21166},{"YEAR":"2021","TotalViolations":30305},{"YEAR":"2022","TotalViolations":32317},{"YEAR":"2023","TotalViolations":22411}]; // Paste the JSON array for violations_by_year here
+        var violationsByYearAndStatusData = [{"YEAR":"2006","VIOLATION STATUS":"COMPLIED","TotalViolations":5707},{"YEAR":"2006","VIOLATION STATUS":"NO ENTRY","TotalViolations":69},{"YEAR":"2006","VIOLATION STATUS":"OPEN","TotalViolations":1365},{"YEAR":"2007","VIOLATION STATUS":"COMPLIED","TotalViolations":4520},{"YEAR":"2007","VIOLATION STATUS":"NO ENTRY","TotalViolations":98},{"YEAR":"2007","VIOLATION STATUS":"OPEN","TotalViolations":394},{"YEAR":"2008","VIOLATION STATUS":"COMPLIED","TotalViolations":16796},{"YEAR":"2008","VIOLATION STATUS":"NO ENTRY","TotalViolations":1474},{"YEAR":"2008","VIOLATION STATUS":"OPEN","TotalViolations":5066},{"YEAR":"2009","VIOLATION STATUS":"COMPLIED","TotalViolations":28121},{"YEAR":"2009","VIOLATION STATUS":"NO ENTRY","TotalViolations":1188},{"YEAR":"2009","VIOLATION STATUS":"OPEN","TotalViolations":30652},{"YEAR":"2010","VIOLATION STATUS":"COMPLIED","TotalViolations":30081},{"YEAR":"2010","VIOLATION STATUS":"NO ENTRY","TotalViolations":477},{"YEAR":"2010","VIOLATION STATUS":"OPEN","TotalViolations":43145},{"YEAR":"2011","VIOLATION STATUS":"COMPLIED","TotalViolations":36717},{"YEAR":"2011","VIOLATION STATUS":"NO ENTRY","TotalViolations":583},{"YEAR":"2011","VIOLATION STATUS":"OPEN","TotalViolations":49193},{"YEAR":"2012","VIOLATION STATUS":"COMPLIED","TotalViolations":30287},{"YEAR":"2012","VIOLATION STATUS":"NO ENTRY","TotalViolations":468},{"YEAR":"2012","VIOLATION STATUS":"OPEN","TotalViolations":40055},{"YEAR":"2013","VIOLATION STATUS":"COMPLIED","TotalViolations":17563},{"YEAR":"2013","VIOLATION STATUS":"NO ENTRY","TotalViolations":385},{"YEAR":"2013","VIOLATION STATUS":"OPEN","TotalViolations":30800},{"YEAR":"2014","VIOLATION STATUS":"COMPLIED","TotalViolations":24474},{"YEAR":"2014","VIOLATION STATUS":"NO ENTRY","TotalViolations":206},{"YEAR":"2014","VIOLATION STATUS":"OPEN","TotalViolations":39563},{"YEAR":"2015","VIOLATION STATUS":"COMPLIED","TotalViolations":37435},{"YEAR":"2015","VIOLATION STATUS":"NO ENTRY","TotalViolations":159},{"YEAR":"2015","VIOLATION STATUS":"OPEN","TotalViolations":45578},{"YEAR":"2016","VIOLATION STATUS":"COMPLIED","TotalViolations":32015},{"YEAR":"2016","VIOLATION STATUS":"NO ENTRY","TotalViolations":249},{"YEAR":"2016","VIOLATION STATUS":"OPEN","TotalViolations":49581},{"YEAR":"2017","VIOLATION STATUS":"COMPLIED","TotalViolations":29576},{"YEAR":"2017","VIOLATION STATUS":"NO ENTRY","TotalViolations":338},{"YEAR":"2017","VIOLATION STATUS":"OPEN","TotalViolations":39380},{"YEAR":"2018","VIOLATION STATUS":"COMPLIED","TotalViolations":25909},{"YEAR":"2018","VIOLATION STATUS":"NO ENTRY","TotalViolations":241},{"YEAR":"2018","VIOLATION STATUS":"OPEN","TotalViolations":31200},{"YEAR":"2019","VIOLATION STATUS":"COMPLIED","TotalViolations":18104},{"YEAR":"2019","VIOLATION STATUS":"NO ENTRY","TotalViolations":199},{"YEAR":"2019","VIOLATION STATUS":"OPEN","TotalViolations":29480},{"YEAR":"2020","VIOLATION STATUS":"COMPLIED","TotalViolations":3520},{"YEAR":"2020","VIOLATION STATUS":"NO ENTRY","TotalViolations":75},{"YEAR":"2020","VIOLATION STATUS":"OPEN","TotalViolations":17571},{"YEAR":"2021","VIOLATION STATUS":"COMPLIED","TotalViolations":7906},{"YEAR":"2021","VIOLATION STATUS":"NO ENTRY","TotalViolations":106},{"YEAR":"2021","VIOLATION STATUS":"OPEN","TotalViolations":22293},{"YEAR":"2022","VIOLATION STATUS":"COMPLIED","TotalViolations":8947},{"YEAR":"2022","VIOLATION STATUS":"NO ENTRY","TotalViolations":62},{"YEAR":"2022","VIOLATION STATUS":"OPEN","TotalViolations":23308},{"YEAR":"2023","VIOLATION STATUS":"COMPLIED","TotalViolations":1882},{"YEAR":"2023","VIOLATION STATUS":"NO ENTRY","TotalViolations":3},{"YEAR":"2023","VIOLATION STATUS":"OPEN","TotalViolations":20526}]; // Paste the JSON array for violations_by_year_and_status here
+        var totalViolationsByYearData_vis2 = [{"YEAR":2006,"TotalViolations":7141},{"YEAR":2007,"TotalViolations":5012},{"YEAR":2008,"TotalViolations":23336},{"YEAR":2009,"TotalViolations":59961},{"YEAR":2010,"TotalViolations":73703},{"YEAR":2011,"TotalViolations":86493},{"YEAR":2012,"TotalViolations":70810},{"YEAR":2013,"TotalViolations":48748},{"YEAR":2014,"TotalViolations":64243},{"YEAR":2015,"TotalViolations":83172},{"YEAR":2016,"TotalViolations":81845},{"YEAR":2017,"TotalViolations":69294},{"YEAR":2018,"TotalViolations":57350},{"YEAR":2019,"TotalViolations":47783},{"YEAR":2020,"TotalViolations":21166},{"YEAR":2021,"TotalViolations":30305},{"YEAR":2022,"TotalViolations":32317},{"YEAR":2023,"TotalViolations":22411}]
+        var aggregatedByYearDeptData = [{"YEAR":2006,"DEPARTMENT BUREAU":"BOILER","TotalViolations":385},{"YEAR":2006,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":6015},{"YEAR":2006,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":4},{"YEAR":2006,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":8},{"YEAR":2006,"DEPARTMENT BUREAU":"PLUMBING","TotalViolations":3},{"YEAR":2006,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":643},{"YEAR":2006,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":74},{"YEAR":2006,"DEPARTMENT BUREAU":"VENTILATION","TotalViolations":9},{"YEAR":2007,"DEPARTMENT BUREAU":"BOILER","TotalViolations":437},{"YEAR":2007,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":3498},{"YEAR":2007,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":5},{"YEAR":2007,"DEPARTMENT BUREAU":"IRON","TotalViolations":3},{"YEAR":2007,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":3},{"YEAR":2007,"DEPARTMENT BUREAU":"PLUMBING","TotalViolations":2},{"YEAR":2007,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":1034},{"YEAR":2007,"DEPARTMENT BUREAU":"SPECIAL INSPECTION PROGRAM","TotalViolations":2},{"YEAR":2007,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":22},{"YEAR":2007,"DEPARTMENT BUREAU":"VENTILATION","TotalViolations":6},{"YEAR":2008,"DEPARTMENT BUREAU":"BOILER","TotalViolations":412},{"YEAR":2008,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":22016},{"YEAR":2008,"DEPARTMENT BUREAU":"ELECTRICAL","TotalViolations":1},{"YEAR":2008,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":1},{"YEAR":2008,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":6},{"YEAR":2008,"DEPARTMENT BUREAU":"PLUMBING","TotalViolations":14},{"YEAR":2008,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":870},{"YEAR":2008,"DEPARTMENT BUREAU":"SIGNS","TotalViolations":1},{"YEAR":2008,"DEPARTMENT BUREAU":"SPECIAL INSPECTION PROGRAM","TotalViolations":7},{"YEAR":2008,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":7},{"YEAR":2008,"DEPARTMENT BUREAU":"VENTILATION","TotalViolations":1},{"YEAR":2009,"DEPARTMENT BUREAU":"BOILER","TotalViolations":221},{"YEAR":2009,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":58274},{"YEAR":2009,"DEPARTMENT BUREAU":"ELECTRICAL","TotalViolations":1},{"YEAR":2009,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":7},{"YEAR":2009,"DEPARTMENT BUREAU":"IRON","TotalViolations":3},{"YEAR":2009,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":7},{"YEAR":2009,"DEPARTMENT BUREAU":"PLUMBING","TotalViolations":3},{"YEAR":2009,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":1403},{"YEAR":2009,"DEPARTMENT BUREAU":"SIGNS","TotalViolations":4},{"YEAR":2009,"DEPARTMENT BUREAU":"SPECIAL INSPECTION PROGRAM","TotalViolations":22},{"YEAR":2009,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":15},{"YEAR":2009,"DEPARTMENT BUREAU":"VENTILATION","TotalViolations":1},{"YEAR":2010,"DEPARTMENT BUREAU":"BOILER","TotalViolations":83},{"YEAR":2010,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":71691},{"YEAR":2010,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":1},{"YEAR":2010,"DEPARTMENT BUREAU":"IRON","TotalViolations":4},{"YEAR":2010,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":20},{"YEAR":2010,"DEPARTMENT BUREAU":"PLUMBING","TotalViolations":35},{"YEAR":2010,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":1848},{"YEAR":2010,"DEPARTMENT BUREAU":"SPECIAL INSPECTION PROGRAM","TotalViolations":7},{"YEAR":2010,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":9},{"YEAR":2010,"DEPARTMENT BUREAU":"VENTILATION","TotalViolations":1},{"YEAR":2010,"DEPARTMENT BUREAU":"WATER","TotalViolations":4},{"YEAR":2011,"DEPARTMENT BUREAU":"BOILER","TotalViolations":49},{"YEAR":2011,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":83742},{"YEAR":2011,"DEPARTMENT BUREAU":"ELECTRICAL","TotalViolations":1},{"YEAR":2011,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":45},{"YEAR":2011,"DEPARTMENT BUREAU":"IRON","TotalViolations":3},{"YEAR":2011,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":15},{"YEAR":2011,"DEPARTMENT BUREAU":"PLUMBING","TotalViolations":16},{"YEAR":2011,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":2604},{"YEAR":2011,"DEPARTMENT BUREAU":"SIGNS","TotalViolations":1},{"YEAR":2011,"DEPARTMENT BUREAU":"SPECIAL INSPECTION PROGRAM","TotalViolations":6},{"YEAR":2011,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":5},{"YEAR":2011,"DEPARTMENT BUREAU":"VENTILATION","TotalViolations":5},{"YEAR":2011,"DEPARTMENT BUREAU":"WATER","TotalViolations":1},{"YEAR":2012,"DEPARTMENT BUREAU":"BOILER","TotalViolations":73},{"YEAR":2012,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":69175},{"YEAR":2012,"DEPARTMENT BUREAU":"DEMOLITION","TotalViolations":2},{"YEAR":2012,"DEPARTMENT BUREAU":"ELECTRICAL","TotalViolations":6},{"YEAR":2012,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":335},{"YEAR":2012,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":20},{"YEAR":2012,"DEPARTMENT BUREAU":"PLUMBING","TotalViolations":14},{"YEAR":2012,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":1150},{"YEAR":2012,"DEPARTMENT BUREAU":"SIGNS","TotalViolations":16},{"YEAR":2012,"DEPARTMENT BUREAU":"SPECIAL INSPECTION PROGRAM","TotalViolations":2},{"YEAR":2012,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":16},{"YEAR":2012,"DEPARTMENT BUREAU":"VENTILATION","TotalViolations":1},{"YEAR":2013,"DEPARTMENT BUREAU":"BOILER","TotalViolations":26},{"YEAR":2013,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":47754},{"YEAR":2013,"DEPARTMENT BUREAU":"DEMOLITION","TotalViolations":2},{"YEAR":2013,"DEPARTMENT BUREAU":"ELECTRICAL","TotalViolations":6},{"YEAR":2013,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":9},{"YEAR":2013,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":25},{"YEAR":2013,"DEPARTMENT BUREAU":"PLUMBING","TotalViolations":5},{"YEAR":2013,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":891},{"YEAR":2013,"DEPARTMENT BUREAU":"SIGNS","TotalViolations":23},{"YEAR":2013,"DEPARTMENT BUREAU":"SPECIAL INSPECTION PROGRAM","TotalViolations":1},{"YEAR":2013,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":6},{"YEAR":2014,"DEPARTMENT BUREAU":"BOILER","TotalViolations":45},{"YEAR":2014,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":62716},{"YEAR":2014,"DEPARTMENT BUREAU":"DEMOLITION","TotalViolations":1},{"YEAR":2014,"DEPARTMENT BUREAU":"ELECTRICAL","TotalViolations":10},{"YEAR":2014,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":267},{"YEAR":2014,"DEPARTMENT BUREAU":"IRON","TotalViolations":4},{"YEAR":2014,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":20},{"YEAR":2014,"DEPARTMENT BUREAU":"PLUMBING","TotalViolations":10},{"YEAR":2014,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":1091},{"YEAR":2014,"DEPARTMENT BUREAU":"SIGNS","TotalViolations":56},{"YEAR":2014,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":20},{"YEAR":2014,"DEPARTMENT BUREAU":"VENTILATION","TotalViolations":3},{"YEAR":2015,"DEPARTMENT BUREAU":"BOILER","TotalViolations":49},{"YEAR":2015,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":82547},{"YEAR":2015,"DEPARTMENT BUREAU":"ELECTRICAL","TotalViolations":6},{"YEAR":2015,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":99},{"YEAR":2015,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":19},{"YEAR":2015,"DEPARTMENT BUREAU":"PLUMBING","TotalViolations":6},{"YEAR":2015,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":361},{"YEAR":2015,"DEPARTMENT BUREAU":"SIGNS","TotalViolations":22},{"YEAR":2015,"DEPARTMENT BUREAU":"SPECIAL INSPECTION PROGRAM","TotalViolations":1},{"YEAR":2015,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":56},{"YEAR":2015,"DEPARTMENT BUREAU":"VENTILATION","TotalViolations":6},{"YEAR":2016,"DEPARTMENT BUREAU":"BOILER","TotalViolations":51},{"YEAR":2016,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":80673},{"YEAR":2016,"DEPARTMENT BUREAU":"ELECTRICAL","TotalViolations":20},{"YEAR":2016,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":42},{"YEAR":2016,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":20},{"YEAR":2016,"DEPARTMENT BUREAU":"PLUMBING","TotalViolations":3},{"YEAR":2016,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":933},{"YEAR":2016,"DEPARTMENT BUREAU":"SIGNS","TotalViolations":21},{"YEAR":2016,"DEPARTMENT BUREAU":"SPECIAL INSPECTION PROGRAM","TotalViolations":57},{"YEAR":2016,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":23},{"YEAR":2016,"DEPARTMENT BUREAU":"VENTILATION","TotalViolations":2},{"YEAR":2017,"DEPARTMENT BUREAU":"BOILER","TotalViolations":68},{"YEAR":2017,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":68079},{"YEAR":2017,"DEPARTMENT BUREAU":"ELECTRICAL","TotalViolations":39},{"YEAR":2017,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":2},{"YEAR":2017,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":33},{"YEAR":2017,"DEPARTMENT BUREAU":"PLUMBING","TotalViolations":6},{"YEAR":2017,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":893},{"YEAR":2017,"DEPARTMENT BUREAU":"SIGNS","TotalViolations":35},{"YEAR":2017,"DEPARTMENT BUREAU":"SPECIAL INSPECTION PROGRAM","TotalViolations":105},{"YEAR":2017,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":32},{"YEAR":2017,"DEPARTMENT BUREAU":"VENTILATION","TotalViolations":2},{"YEAR":2018,"DEPARTMENT BUREAU":"BOILER","TotalViolations":42},{"YEAR":2018,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":56200},{"YEAR":2018,"DEPARTMENT BUREAU":"ELECTRICAL","TotalViolations":17},{"YEAR":2018,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":14},{"YEAR":2018,"DEPARTMENT BUREAU":"IRON","TotalViolations":26},{"YEAR":2018,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":33},{"YEAR":2018,"DEPARTMENT BUREAU":"PLUMBING","TotalViolations":9},{"YEAR":2018,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":560},{"YEAR":2018,"DEPARTMENT BUREAU":"SIGNS","TotalViolations":29},{"YEAR":2018,"DEPARTMENT BUREAU":"SPECIAL INSPECTION PROGRAM","TotalViolations":119},{"YEAR":2018,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":74},{"YEAR":2018,"DEPARTMENT BUREAU":"VENTILATION","TotalViolations":227},{"YEAR":2019,"DEPARTMENT BUREAU":"BOILER","TotalViolations":59},{"YEAR":2019,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":46597},{"YEAR":2019,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":11},{"YEAR":2019,"DEPARTMENT BUREAU":"IRON","TotalViolations":13},{"YEAR":2019,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":43},{"YEAR":2019,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":506},{"YEAR":2019,"DEPARTMENT BUREAU":"SIGNS","TotalViolations":46},{"YEAR":2019,"DEPARTMENT BUREAU":"SPECIAL INSPECTION PROGRAM","TotalViolations":201},{"YEAR":2019,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":74},{"YEAR":2019,"DEPARTMENT BUREAU":"VENTILATION","TotalViolations":233},{"YEAR":2020,"DEPARTMENT BUREAU":"BOILER","TotalViolations":19},{"YEAR":2020,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":20453},{"YEAR":2020,"DEPARTMENT BUREAU":"ELECTRICAL","TotalViolations":4},{"YEAR":2020,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":6},{"YEAR":2020,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":29},{"YEAR":2020,"DEPARTMENT BUREAU":"PLUMBING","TotalViolations":3},{"YEAR":2020,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":326},{"YEAR":2020,"DEPARTMENT BUREAU":"SIGNS","TotalViolations":4},{"YEAR":2020,"DEPARTMENT BUREAU":"SPECIAL INSPECTION PROGRAM","TotalViolations":201},{"YEAR":2020,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":43},{"YEAR":2020,"DEPARTMENT BUREAU":"VENTILATION","TotalViolations":78},{"YEAR":2021,"DEPARTMENT BUREAU":"BOILER","TotalViolations":27},{"YEAR":2021,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":28705},{"YEAR":2021,"DEPARTMENT BUREAU":"ELECTRICAL","TotalViolations":7},{"YEAR":2021,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":6},{"YEAR":2021,"DEPARTMENT BUREAU":"IRON","TotalViolations":58},{"YEAR":2021,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":164},{"YEAR":2021,"DEPARTMENT BUREAU":"PLUMBING","TotalViolations":8},{"YEAR":2021,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":527},{"YEAR":2021,"DEPARTMENT BUREAU":"SPECIAL INSPECTION PROGRAM","TotalViolations":359},{"YEAR":2021,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":352},{"YEAR":2021,"DEPARTMENT BUREAU":"VENTILATION","TotalViolations":92},{"YEAR":2022,"DEPARTMENT BUREAU":"BOILER","TotalViolations":2},{"YEAR":2022,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":31680},{"YEAR":2022,"DEPARTMENT BUREAU":"ELECTRICAL","TotalViolations":8},{"YEAR":2022,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":4},{"YEAR":2022,"DEPARTMENT BUREAU":"IRON","TotalViolations":32},{"YEAR":2022,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":173},{"YEAR":2022,"DEPARTMENT BUREAU":"PLUMBING","TotalViolations":7},{"YEAR":2022,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":251},{"YEAR":2022,"DEPARTMENT BUREAU":"SPECIAL INSPECTION PROGRAM","TotalViolations":60},{"YEAR":2022,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":23},{"YEAR":2022,"DEPARTMENT BUREAU":"VENTILATION","TotalViolations":77},{"YEAR":2023,"DEPARTMENT BUREAU":"BOILER","TotalViolations":11},{"YEAR":2023,"DEPARTMENT BUREAU":"CONSERVATION","TotalViolations":22171},{"YEAR":2023,"DEPARTMENT BUREAU":"ELECTRICAL","TotalViolations":2},{"YEAR":2023,"DEPARTMENT BUREAU":"ELEVATOR","TotalViolations":3},{"YEAR":2023,"DEPARTMENT BUREAU":"IRON","TotalViolations":2},{"YEAR":2023,"DEPARTMENT BUREAU":"NEW CONSTRUCTION","TotalViolations":15},{"YEAR":2023,"DEPARTMENT BUREAU":"REFRIGERATION","TotalViolations":166},{"YEAR":2023,"DEPARTMENT BUREAU":"SIGNS","TotalViolations":1},{"YEAR":2023,"DEPARTMENT BUREAU":"SPECIAL INSPECTION PROGRAM","TotalViolations":18},{"YEAR":2023,"DEPARTMENT BUREAU":"SPECIAL TASK FORCE","TotalViolations":2},{"YEAR":2023,"DEPARTMENT BUREAU":"VENTILATION","TotalViolations":20}]
+    </script>
+    <script>
+        vegaEmbed('#vega-vis', {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "data": {
+                "url": "dfaggregate.json"  
+            },
+            "title": "Spatial Distribution of Violations by Department Bureau",
+            "width": 1200,
+            "height": 12,
+            "vconcat": [
+                {
+                    "title": "Building Violations of Department Bureau",
+                    "mark": "bar",
+                    "encoding": {
+                        "x": {"field": "Department", "type": "nominal", "title": "Department"},
+                        "y": {"field": "Number of Violations", "type": "quantitative", "title": "Number of Violations"},
+                        "color": {"field": "Department", "type": "nominal"},
+                        "tooltip": [
+                            {"field": "Department", "type": "nominal"},
+                            {"field": "Number of Violations", "type": "quantitative"}
+                        ]
+                    },
+                    "selection": {
+                        "highlight": {"type": "single", "empty": "none", "on": "mouseover", "fields": ["Department"]}
+                    }
+                },
+                {
+                    "title": "Location for the Violation of Department Bureau",
+                    "mark": "circle",
+                    "encoding": {
+                        "longitude": {"field": "Average Longitude", "type": "quantitative", "title": "Longitude"},
+                        "latitude": {"field": "Average Latitude", "type": "quantitative", "title": "Latitude"},
+                        "color": {
+                            "condition": {
+                                "selection": "highlight",
+                                "field": "Department",
+                                "type": "nominal"
+                            },
+                            "value": "gray"
+                        },
+                        "size": {
+                            "field": "Number of Violations",
+                            "type": "quantitative",
+                            "scale": {"range": [100, 1000]},
+                            "legend": {"title": "Size by Number of Violations"}
+                        },
+                        "tooltip": [
+                            {"field": "Department", "type": "nominal"},
+                            {"field": "Average Latitude", "type": "quantitative"},
+                            {"field": "Average Longitude", "type": "quantitative"},
+                            {"field": "Number of Violations", "type": "quantitative"}
+                        ]
+                    },
+                    "projection": {
+                        "type": "identity"
+                    }
+                }
+            ]
+        });
+        vegaEmbed('#violations-vis', {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "title": "Building Violations Over Time",
+            "data": {
+                "url": "violation_year.json" 
+            },
+            "width": 700,
+            "height": 500,
+            "vconcat": [{
+                "width": 600,
+                "mark": "area",
+                "encoding": {
+                    "x": {
+                        "field": "YEAR",
+                        "type": "temporal",
+                        "scale": {"domain": {"selection": "brush"}},
+                        "axis": {"title": "YEAR"}
+                    },
+                    "y": {
+                        "field": "Number_of_Violations",
+                        "type": "quantitative",
+                        "title": "Number of Violations"
+                    }
+                }
+            }, {
+                "width": 600,
+                "height": 60,
+                "mark": "area",
+                "selection": {
+                    "brush": {"type": "interval", "encodings": ["x"]}
+                },
+                "encoding": {
+                    "x": {
+                        "field": "YEAR",
+                        "type": "temporal"
+                    },
+                    "y": {
+                        "field": "Number_of_Violations",
+                        "type": "quantitative",
+                        "axis": {"tickCount": 3, "grid": false}
+                    }
+                }
+            }]
+        }).catch(console.error);
+        vegaEmbed('#combined-vis', {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "title": "Violation Analysis Over the Years",
+            "vconcat": [
+                {
+                    "title": "Building Violations over Years",
+                    "data": {"values": violationsByYearData},
+                    "mark": "line",
+                    "selection": {
+                        "brush": {"type": "interval", "encodings": ["x"]}
+                    },
+                    "encoding": {
+                        "x": {"field": "YEAR", "type": "ordinal", "title": "Year"},
+                        "y": {"field": "TotalViolations", "type": "quantitative", "title": "Number of Violations"},
+                        "tooltip": [{"field": "YEAR", "type": "ordinal"}, {"field": "TotalViolations", "type": "quantitative"}]
+                    }
+                },
+                {
+                    "title": "Violation status Over the Years",
+                    "data": {"values": violationsByYearAndStatusData},
+                    "mark": "bar",
+                    "transform": [{"filter": {"selection": "brush"}}],
+                    "encoding": {
+                        "x": {"field": "VIOLATION STATUS", "type": "nominal", "title": "Violation Status"},
+                        "y": {"field": "TotalViolations", "type": "quantitative", "title": "Number of Violations"},
+                        "color": {
+                            "field": "VIOLATION STATUS",
+                            "type": "nominal",
+                            "legend": {"title": "Violation Status"},
+                            "scale": {"range": ["red", "green", "yellow"]}
+                        }
+                    }
+                }
+            ]
+        }).catch(console.error);
+        vegaEmbed('#click-interaction-vis', {
+            "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+            "title": "Department Wise Distribution with Detailed Inspection",
+            "vconcat": [
+                {
+                    "title": "Total Violations by Year",
+                    "data": {"values": totalViolationsByYearData_vis2},
+                    "mark": "bar",
+                    "encoding": {
+                        "x": {
+                            "field": "YEAR",
+                            "type": "ordinal",
+                            "title": "Year"
+                        },
+                        "y": {
+                            "field": "TotalViolations",
+                            "type": "quantitative",
+                            "title": "Number of Violations"
+                        },
+                        "tooltip": [
+                            {"field": "YEAR", "type": "ordinal", "title": "Year"},
+                            {"field": "TotalViolations", "type": "quantitative", "title": "Total Violations"}
+                        ]
+                    },
+                    "selection": {
+                        "select_year": {"type": "single", "fields": ["YEAR"], "empty": "none", "on": "click"}
+                    }
+                },
+                {
+                    "title": "Department-wise Distribution for Selected Year",
+                    "data": {"values": aggregatedByYearDeptData},
+                    "transform": [{
+                        "filter": {"selection": "select_year"}
+                    }],
+                    "mark": "arc",
+                    "encoding": {
+                        "theta": {
+                            "field": "TotalViolations",
+                            "type": "quantitative"
+                        },
+                        "color": {
+                            "field": "DEPARTMENT BUREAU",
+                            "type": "nominal",
+                            "legend": {
+                                "title": "Department Bureau",
+                            }
+                        },
+                        "tooltip": [
+                            {"field": "DEPARTMENT BUREAU", "type": "nominal", "title": "Department"},
+                            {"field": "TotalViolations", "type": "quantitative", "title": "Violations"}
+                        ]
+                    }
+                }
+            ]
+        }).catch(console.error);  
+
+
+    </script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

@@ -1,0 +1,58 @@
+[
+    {
+        "DEPARTMENT BUREAU":"BOILER",
+        "TotalViolations":2059
+    },
+    {
+        "DEPARTMENT BUREAU":"CONSERVATION",
+        "TotalViolations":861986
+    },
+    {
+        "DEPARTMENT BUREAU":"DEMOLITION",
+        "TotalViolations":5
+    },
+    {
+        "DEPARTMENT BUREAU":"ELECTRICAL",
+        "TotalViolations":128
+    },
+    {
+        "DEPARTMENT BUREAU":"ELEVATOR",
+        "TotalViolations":861
+    },
+    {
+        "DEPARTMENT BUREAU":"IRON",
+        "TotalViolations":148
+    },
+    {
+        "DEPARTMENT BUREAU":"NEW CONSTRUCTION",
+        "TotalViolations":653
+    },
+    {
+        "DEPARTMENT BUREAU":"PLUMBING",
+        "TotalViolations":144
+    },
+    {
+        "DEPARTMENT BUREAU":"REFRIGERATION",
+        "TotalViolations":16057
+    },
+    {
+        "DEPARTMENT BUREAU":"SIGNS",
+        "TotalViolations":259
+    },
+    {
+        "DEPARTMENT BUREAU":"SPECIAL INSPECTION PROGRAM",
+        "TotalViolations":1168
+    },
+    {
+        "DEPARTMENT BUREAU":"SPECIAL TASK FORCE",
+        "TotalViolations":853
+    },
+    {
+        "DEPARTMENT BUREAU":"VENTILATION",
+        "TotalViolations":764
+    },
+    {
+        "DEPARTMENT BUREAU":"WATER",
+        "TotalViolations":5
+    }
+]
